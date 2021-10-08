@@ -45,12 +45,18 @@ namespace CreditQueueListener
 
         private async Task ProcessMessageAsync(SQSEvent.SQSMessage message, ILambdaContext context)
         {
+            bool result = false;
             context.Logger.LogLine($"Processed message {message.Body}");
 
             ProcessMessages pmobj = new ProcessMessages();
             pmobj = JsonConvert.DeserializeObject<ProcessMessages>(message.Body);
             ProcessMessages pm = new ProcessMessages();
-            pm.ProcessMsg(pmobj);
+            result = pm.ProcessMsg(pmobj);
+
+            if (result == true)
+            {
+                pm.LogMessage("CreditQueueListener --- Loan application send to the Creditor " + message.Body.ToString());
+            }
 
             // TODO: Do interesting work based on the new message
             await Task.CompletedTask;

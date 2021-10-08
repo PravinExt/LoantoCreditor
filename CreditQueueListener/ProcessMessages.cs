@@ -8,6 +8,7 @@ namespace CreditQueueListener
 {
     public class ProcessMessages
     {
+        public int LoanApplication_ID { get; set; }
         public string Applicant_fname { get; set; }
         public string Applicant_mname { get; set; }
         public string Applicant_lname { get; set; }
@@ -26,7 +27,7 @@ namespace CreditQueueListener
             {
                 dbHelper.Connect(dbHelper.GetConnStr());
 
-                MySqlParameter[] app_para = new MySqlParameter[9];
+                MySqlParameter[] app_para = new MySqlParameter[10];
                 app_para[0] = new MySqlParameter("Applicant_fname", pmobj.Applicant_fname);
                 app_para[1] = new MySqlParameter("Applicant_mname", pmobj.Applicant_mname);
                 app_para[2] = new MySqlParameter("Applicant_lname", pmobj.Applicant_lname);
@@ -36,6 +37,7 @@ namespace CreditQueueListener
                 app_para[6] = new MySqlParameter("LoanStatus", pmobj.LoanApplication_Status);
                 app_para[7] = new MySqlParameter("LoanApplication_Date", pmobj.LoanApplication_Date);
                 app_para[8] = new MySqlParameter("LoanBanker_Comment", pmobj.LoanApplication_BankerComment);
+                app_para[9] = new MySqlParameter("External_ID", pmobj.LoanApplication_ID);
 
                 int r = dbHelper.Execute("Send_LoanApplicationToCreditor", DBHelper.QueryType.StotedProcedure, app_para);
 
@@ -56,6 +58,29 @@ namespace CreditQueueListener
                 dbHelper = null;
             }
 
+        }
+
+        public void LogMessage(string msg)
+        {
+            DBHelper dbHelper = new DBHelper();
+            try
+            {
+                dbHelper.Connect(dbHelper.GetConnStr());
+
+                MySqlParameter[] app_para = new MySqlParameter[1];
+                app_para[0] = new MySqlParameter("LogMsg", msg);
+
+                int r = dbHelper.Execute("Add_LogMsg", DBHelper.QueryType.StotedProcedure, app_para);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                dbHelper.DisConnect();
+                dbHelper = null;
+            }
         }
     }
 
