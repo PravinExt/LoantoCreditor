@@ -43,7 +43,7 @@ steps:
     packageOnly: false
     lambdaProjectPath: './CreditQueueListener'
     functionName: 'LoantoCreditor'
-    functionRole: 'PopularBank-LambdaExecutionRole-7XLQ6YQFOQ1D'
+    functionRole: 'LambdaFunctionRole'
     functionHandler: 'LoantoCreditor::LoantoCreditor.Function::FunctionHandler'
     functionMemory: 512
     functionTimeout: 60
