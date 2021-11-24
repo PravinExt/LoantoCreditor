@@ -43,7 +43,7 @@ steps:
     packageOnly: false
     lambdaProjectPath: './CreditQueueListener'
     functionName: 'LoantoCreditor'
-    functionRole: 'LambdaFunctionRole'
+    functionRole: 'LoanToCreditor-role-coada3b2'
     functionHandler: 'LoantoCreditor::LoantoCreditor.Function::FunctionHandler'
     functionMemory: 512
     functionTimeout: 60
