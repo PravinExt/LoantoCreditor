@@ -35,15 +35,12 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
     
-- task: LambdaNETCoreDeploy@1
+- task: LambdaDeployFunction@1
   inputs:
     awsCredentials: 'awsconnection'
     regionName: 'ap-south-1'
-    command: 'deployFunction'
-    packageOnly: false
-    lambdaProjectPath: './CreditQueueListener'
+    deploymentMode: 'codeonly'
     functionName: 'LoantoCreditor'
-    functionRole: 'PopularBank-LambdaExecutionRole-7XLQ6YQFOQ1D'
-    functionHandler: 'LoantoCreditor::LoantoCreditor.Function::FunctionHandler'
-    functionMemory: 512
-    functionTimeout: 60
+    codeLocation: 'localfile'
+    localZipFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    outputVariable: 'LoantoCreditor'
