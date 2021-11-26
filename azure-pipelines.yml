@@ -41,7 +41,7 @@ steps:
     regionName: 'ap-south-1'
     command: 'deployFunction'
     packageOnly: false
-    lambdaProjectPath: './LoantoCreditor'
+    lambdaProjectPath: './CreditQueueListener'
     functionName: 'LoantoCreditor'
     functionRole: 'cloudform-LambdaExecutionRole-1XRKE2AES4R75'
     functionHandler: 'CreditQueueListener::CreditQueueListener.Function::FunctionHandler'
