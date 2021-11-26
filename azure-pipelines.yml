@@ -45,7 +45,7 @@ steps:
     runtime: 'dotnetcore2.1'
     codeLocation: 'localfile'
     localZipFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    roleARN: 'arn:aws:iam::618393550001:role/cloudform-StatesExecutionRole-13663RHPCNRZU'
+    roleARN: 'cloudform-LambdaExecutionRole-1XRKE2AES4R75'
     environment: |
       Database=CreditApproval
       Port=3306
