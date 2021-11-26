@@ -35,15 +35,20 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
     
-- task: LambdaNETCoreDeploy@1
+- task: LambdaDeployFunction@1
   inputs:
     awsCredentials: 'awsconnection'
     regionName: 'ap-south-1'
-    command: 'deployFunction'
-    packageOnly: false
-    lambdaProjectPath: './CreditQueueListener'
+    deploymentMode: 'codeandconfiguration'
     functionName: 'LoantoCreditor'
-    functionRole: 'azure-lambda-role'
     functionHandler: 'CreditQueueListener::CreditQueueListener.Function::FunctionHandler'
-    functionMemory: 512
-    functionTimeout: 3
+    runtime: 'dotnetcore2.1'
+    codeLocation: 'localfile'
+    localZipFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    roleARN: 'arn:aws:iam::618393550001:role/cloudform-StatesExecutionRole-13663RHPCNRZU'
+    environment: |
+      Database=CreditApproval
+      Port=3306
+      PWD=admin8910
+      Server=applicationsubmission.cikv7fwlsku8.ap-south-1.rds.amazonaws.com
+      UID=admin
