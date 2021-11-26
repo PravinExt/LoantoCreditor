@@ -35,12 +35,15 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
     
-- task: LambdaDeployFunction@1
+- task: LambdaNETCoreDeploy@1
   inputs:
     awsCredentials: 'awsconnection'
     regionName: 'ap-south-1'
-    deploymentMode: 'codeonly'
+    command: 'deployFunction'
+    packageOnly: false
+    lambdaProjectPath: './LoantoCreditor'
     functionName: 'LoantoCreditor'
-    codeLocation: 'localfile'
-    localZipFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    outputVariable: 'LoantoCreditor'
+    functionRole: 'cloudform-LambdaExecutionRole-1XRKE2AES4R75'
+    functionHandler: 'CreditQueueListener::CreditQueueListener.Function::FunctionHandler'
+    functionMemory: 512
+    functionTimeout: 3
