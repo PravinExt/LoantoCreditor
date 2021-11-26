@@ -43,7 +43,7 @@ steps:
     packageOnly: false
     lambdaProjectPath: './CreditQueueListener'
     functionName: 'LoantoCreditor'
-    functionRole: 'cloudform-LambdaExecutionRole-1XRKE2AES4R75'
+    functionRole: 'azure-lambda-role'
     functionHandler: 'CreditQueueListener::CreditQueueListener.Function::FunctionHandler'
     functionMemory: 512
     functionTimeout: 3
